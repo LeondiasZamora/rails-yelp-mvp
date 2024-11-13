@@ -1,0 +1,31 @@
+<ul>
+<li><%= @restaurant.name%></li>
+<p><%= @restaurant.category%></p>
+<p><%= @restaurant.address%></p>
+
+</ul>
+
+<ul>
+<% @restaurant.reviews.each do |review|%>
+  <li class="list-group-item">
+    <%= review.content %>
+    <%= link_to "Delete",
+      review_path(review),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+    %>
+    </li>
+  <% end %>
+</ul>
+<h1>New Review</h1>
+
+
+<%= link_to "Create a new review", new_restaurant_review_path(@restaurant)%>
+<%= link_to "back to home", restaurants_path%>
+
+<h1>New Review</h1>
+
+<%= simple_form_for [@restaurant, @review] do |f|%>
+  <%= f.input :content%>
+  <%= f.input :rating%>
+  <%= f.submit%>
+<% end %>
